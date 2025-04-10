@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUET UG 2025 Mock Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .question { margin-bottom: 20px; }
+    .options label { display: block; }
+    button { padding: 10px 15px; margin-top: 10px; }
+    #result { font-weight: bold; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h1>CUET UG 2025 Mock Test</h1>
+  <form id="quizForm">
+    <!-- Questions will be inserted here by JavaScript -->
+    <button type="submit">Submit</button>
+  </form>
+  <div id="result"></div>  <script>
+    const questions = " + JSON.stringify(questions) + ";
+    const options = " + JSON.stringify(options) + ";
+    const correctAnswers = " + JSON.stringify(correct_answers) + ";
+
+    const form = document.getElementById('quizForm');
+
+    questions.forEach((q, i) => {
+      const div = document.createElement('div');
+      div.className = 'question';
+      div.innerHTML = `<p><strong>Q${i + 1}:</strong> ${q}</p>`;
+
+      const optGroup = document.createElement('div');
+      optGroup.className = 'options';
+
+      options[i].forEach((opt, j) => {
+        const id = `q${i}_opt${j}`;
+        optGroup.innerHTML += `
+          <label><input type="radio" name="q${i}" value="${opt.charAt(0)}" id="${id}"> ${opt}</label>
+        `;
+      });
+
+      div.appendChild(optGroup);
+      form.insertBefore(div, form.lastElementChild);
+    });
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      let score = 0;
+
+      questions.forEach((_, i) => {
+        const selected = form[`q${i}`].value;
+        if (selected === correctAnswers[i]) score++;
+      });
+
+      document.getElementById('result').textContent = `You scored ${score} out of ${questions.length}`;
+    });
+  </script></body>
+</html>
